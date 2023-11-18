@@ -4,12 +4,12 @@ struct Distance
 {
     public int Feet;
     public int Inches;
-    private const int InchesPerFoot = 12;
+    private const int InchesInFeet = 12;
 
     public Distance(int feet, int inches)
     {
-        Feet = feet + inches / InchesPerFoot;
-        Inches = inches % InchesPerFoot;
+        Feet = feet + inches / InchesInFeet;
+        Inches = inches % InchesInFeet;
     }
 
     public static Distance Add(Distance d1, Distance d2)
