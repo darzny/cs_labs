@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace HelloWorld
+namespace SumOfNumbers
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main1(string[] args)
         {
             Console.WriteLine("Введите число");
             if (!int.TryParse(Console.ReadLine(), out int number) || number < 0)
