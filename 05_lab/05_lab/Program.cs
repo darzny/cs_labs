@@ -37,10 +37,10 @@ namespace ArrayHandling
             Console.WriteLine($"Сумма отрицательных элементов: {CalculateNegativeSum(array)}");
             Console.WriteLine($"Сумма положительных элементов: {CalculatePositiveSum(array)}");
 
-            int[] oddAndEvenSums = CalculateOddAndEvenElementsSum(array);
+            var oddAndEvenSum = CalculateOddAndEvenElementsSum(array);
 
-            Console.WriteLine($"Сумма нечетных элементов: {oddAndEvenSums[0]}");
-            Console.WriteLine($"Сумма четных элементов: {oddAndEvenSums[1]}");
+            Console.WriteLine($"Сумма нечетных элементов: {oddAndEvenSum.oddSum}");
+            Console.WriteLine($"Сумма четных элементов: {oddAndEvenSum.evenSum}");
 
             int maxIndex, minIndex;
             int maxValue = FindMaxValue(array, out maxIndex);
@@ -104,7 +104,7 @@ namespace ArrayHandling
             return positiveSum;
         }
 
-        static int[] CalculateOddAndEvenElementsSum(int[] arr)
+        static (int oddSum, int evenSum) CalculateOddAndEvenElementsSum(int[] arr)
         {
             int oddSum = 0;
             int evenSum = 0;
@@ -118,11 +118,7 @@ namespace ArrayHandling
                 index++;
             }
 
-            int[] result = new int[2];
-            result[0] = oddSum;
-            result[1] = evenSum;
-
-            return result;
+            return (oddSum, evenSum);
         }
 
         static int FindMaxValue(int[] arr, out int maxIndex)
