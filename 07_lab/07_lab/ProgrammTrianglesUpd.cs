@@ -14,7 +14,21 @@ namespace TrianglesConstructors
 		}
 	}
 
-	public class Triangle : IComparable
+	public class TriangleAreaComparator : IComparer<Triangle>
+	{
+		public int Compare(Triangle x, Triangle y)
+		{
+			if (x == null || y == null)
+			{
+				throw new ArgumentException("Cannot compare null Triangles");
+			}
+
+			return x.Area().CompareTo(y.Area());
+		}
+	}
+
+
+	public class Triangle
 	{
 		private Point p1, p2, p3;
 
@@ -28,7 +42,9 @@ namespace TrianglesConstructors
 		public Triangle(double a, double b, double c)
 		{
             if (!IsValidTriangle(a, b, c))
+			{
                 throw new ArgumentException("Invalid side lengths for a triangle.");
+            }
 
             p1 = new Point(0, 0);
 			p2 = new Point(a, 0);
@@ -40,7 +56,9 @@ namespace TrianglesConstructors
 		public Triangle(double side)
 		{
             if (side <= 0)
+			{
                 throw new ArgumentException("Side length must be positive.");
+            }
 
             p1 = new Point(0, 0);
 			p2 = new Point(side, 0);
@@ -68,7 +86,10 @@ namespace TrianglesConstructors
 
         public double Area()
         {
-            if (!IsValidTriangle()) return 0;
+			if (!IsValidTriangle())
+			{
+				return 0;
+			}
 
             double a = Distance(p1, p2);
             double b = Distance(p2, p3);
@@ -76,16 +97,6 @@ namespace TrianglesConstructors
             double s = (a + b + c) / 2;
 
             return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
-        }
-
-        int IComparable.CompareTo(object obj)
-        {
-            if (obj is Triangle otherTriangle)
-            {
-                return this.Area().CompareTo(otherTriangle.Area());
-            }
-
-            throw new InvalidOperationException("Object is not a Triangle");
         }
 
         public override string ToString()
@@ -106,7 +117,7 @@ namespace TrianglesConstructors
 				new Triangle(1),
 			};
 
-			Array.Sort(triangles);
+			Array.Sort(triangles, new TriangleAreaComparator());
 
 			foreach (Triangle triangle in triangles)
 			{
